@@ -10,11 +10,17 @@
 
 > New issues and PRs from new contributors are auto-closed by default. Maintainers review auto-closed issues daily. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-# Pi Agent Harness
+# MoAH Agent
 
-This is the home of the Pi agent harness project including our self extensible coding agent.
+MoAH is a fork of Pi Agent that keeps Pi's complete coding-agent runtime while
+adding native, inspectable capability profiling. It is a standalone repository:
+the executable is `moah`, user configuration and sessions live under `~/.moah`,
+and upstream Pi remains a Git remote for deliberate updates.
 
-* **[@earendil-works/pi-coding-agent](packages/coding-agent)**: Interactive coding agent CLI
+The initial fork retains Pi's full agent behavior. MoAH-specific routing is
+implemented in this repository, not distributed as a second wrapper package.
+
+* **[@earendil-works/pi-coding-agent](packages/coding-agent)**: MoAH interactive coding agent CLI, forked from Pi
 * **[@earendil-works/pi-agent-core](packages/agent)**: Agent runtime with tool calling and state management
 * **[@earendil-works/pi-ai](packages/ai)**: Unified multi-provider LLM API (OpenAI, Anthropic, Google, …)
 
