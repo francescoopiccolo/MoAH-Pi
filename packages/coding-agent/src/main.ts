@@ -556,6 +556,8 @@ async function promptForMissingSessionCwd(
 
 export interface MainOptions {
 	extensionFactories?: InlineExtension[];
+	/** Stable extension directories supplied by the executable itself. */
+	additionalExtensionPaths?: string[];
 }
 
 export async function main(args: string[], options?: MainOptions) {
@@ -759,7 +761,7 @@ export async function main(args: string[], options?: MainOptions) {
 					}
 				: undefined,
 			resourceLoaderOptions: {
-				additionalExtensionPaths: resolvedExtensionPaths,
+				additionalExtensionPaths: [...(resolvedExtensionPaths ?? []), ...(options?.additionalExtensionPaths ?? [])],
 				additionalSkillPaths: resolvedSkillPaths,
 				additionalPromptTemplatePaths: resolvedPromptTemplatePaths,
 				additionalThemePaths: resolvedThemePaths,

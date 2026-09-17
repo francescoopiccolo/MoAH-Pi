@@ -14,7 +14,12 @@ const internalPackageNames = new Set(["@earendil-works/chord"]);
 const allowedInstallScriptPackages = new Map([
 	["@google/genai@2.21.0", "preinstall is a no-op in the published package"],
 	["esbuild@0.28.2", "postinstall selects and verifies the platform-specific esbuild binary"],
+	[
+		"onnxruntime-node@1.24.3",
+		"postinstall only fetches optional CUDA binaries on Linux x64; Windows, macOS, and Linux arm64 have no manifest requirements",
+	],
 	["protobufjs@7.6.6", "postinstall only warns about protobufjs version scheme mismatches"],
+	["sharp@0.34.5", "install verifies a prebuilt libvips binary and only builds from source when explicitly configured"],
 ]);
 
 const args = new Set(process.argv.slice(2));

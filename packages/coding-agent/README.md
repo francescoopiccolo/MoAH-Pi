@@ -65,8 +65,15 @@ I regularly publish my own `pi-mono` work sessions here:
 ## Quick Start
 
 ```bash
-npm install -g --ignore-scripts @earendil-works/pi-coding-agent
+git clone https://github.com/francescoopiccolo/MoAH-Pi.git
+cd MoAH-Pi
+npm ci --ignore-scripts
+npm run hydrate:model-data
+npm run build:offline
 ```
+
+The MoAH source distribution is the authoritative way to obtain the native
+router. Its executable is `moah`, not `pi`.
 
 `--ignore-scripts` disables dependency lifecycle scripts during install. Pi does not require install scripts for normal npm installs.
 
@@ -80,15 +87,19 @@ Authenticate with an API key:
 
 ```bash
 export ANTHROPIC_API_KEY=sk-ant-...
-pi
+moah
 ```
 
 Or use your existing subscription:
 
 ```bash
-pi
+moah
 /login  # Then select provider
 ```
+
+Then run `/moah setup` once. It downloads MoAH's local semantic routing model;
+subsequent prompts can reload a selected native capability profile without
+restarting or re-downloading the coding agent.
 
 Then just talk to pi. By default, pi gives the model four tools: `read`, `write`, `edit`, and `bash`. The model uses these to fulfill your requests. Add capabilities via [skills](#skills), [prompt templates](#prompt-templates), [extensions](#extensions), or [pi packages](#pi-packages).
 

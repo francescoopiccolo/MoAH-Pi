@@ -20,6 +20,38 @@ and upstream Pi remains a Git remote for deliberate updates.
 The initial fork retains Pi's full agent behavior. MoAH-specific routing is
 implemented in this repository, not distributed as a second wrapper package.
 
+## Native capability router
+
+MoAH starts with Pi's normal core tools. Run `/moah setup` once to download the
+local `Xenova/multilingual-e5-small` embedding model. For each ordinary user
+prompt, MoAH semantically ranks its bundled official capability set, stages
+small re-export wrappers in `.moah/native-active`, and calls Pi's in-process
+reload. The original prompt is replayed only after the reloaded runtime has
+bound the selected tool schemas. MoAH does not download or restart Pi when the
+profile changes.
+
+The initial automatic set is deliberately conservative and inspectable:
+`plan-mode`, `todo`, `question`, `questionnaire`, `structured-output`, and
+`truncated-tool`. Those are shipped Pi examples; the generated wrapper records
+the target and SHA-256. `/moah` displays the selected profile and its hashes.
+
+## Run MoAH from this repository
+
+Requires Node.js 22.19 or newer.
+
+```bash
+git clone https://github.com/francescoopiccolo/MoAH-Pi.git
+cd MoAH-Pi
+npm ci --ignore-scripts
+npm run hydrate:model-data
+npm run build:offline
+node packages/coding-agent/dist/bundle/cli.js
+```
+
+In the interactive agent, run `/moah setup` once before relying on semantic
+selection. If the model is absent, MoAH reports that condition and continues
+with Pi core tools rather than substituting a deterministic router.
+
 * **[@earendil-works/pi-coding-agent](packages/coding-agent)**: MoAH interactive coding agent CLI, forked from Pi
 * **[@earendil-works/pi-agent-core](packages/agent)**: Agent runtime with tool calling and state management
 * **[@earendil-works/pi-ai](packages/ai)**: Unified multi-provider LLM API (OpenAI, Anthropic, Google, …)
